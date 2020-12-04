@@ -1,3 +1,4 @@
-SECRET_KEY = 'Sm9obiBTY2hyb20ga2lja3MgYXNz'
-STRIPE_API_KEY = 'SmFjb2IgS2FwbGFuLU1vc3MgaXMgYSBoZXJv'
+DEBUG = True # Turns on debugging features in Flask
+SQLALCHEMY_ECHO = True
+ENV = "development"
 SQLALCHEMY_DATABASE_URI= "postgresql://postgres:postgres@localhost/face-recognition"
