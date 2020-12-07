@@ -1,7 +1,8 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
-from . import admin
+import datetime
+from .blueprints.admin import admin
 
 db = SQLAlchemy()
 
@@ -24,7 +25,7 @@ def create_app():
     db.init_app(app)
 
     login_manager = LoginManager()
-    login_manager.login_view = "auth.login"
+    login_manager.login_view = "admin.login"
     login_manager.init_app(app)
 
     from .models import User
@@ -34,7 +35,10 @@ def create_app():
         # since the user_id is just the primary key of our user table, use it in the query for the user
         return User.query.get(int(user_id))
 
-    app.register_blueprint(admin.blueprints.home, url_prefix="/admin")
-    app.register_blueprint(admin.blueprints.auth, url_prefix="/admin")
+    @app.context_processor
+    def inject_date_for_all_templates():
+        return dict(date=datetime.datetime.now())
+
+    app.register_blueprint(admin, url_prefix="/admin")
 
     return app

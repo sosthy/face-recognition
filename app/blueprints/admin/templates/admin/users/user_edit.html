@@ -1,0 +1,188 @@
+{% extends "layouts/base.html" %}
+<!-- title -->
+{% block title %} Users {% endblock %}
+<!-- links block-->
+{% block links %}
+<!-- Bootstrap -->
+<link
+  href="{{ url_for('static', filename='vendors/bootstrap/dist/css/bootstrap.min.css') }}"
+  rel="stylesheet"
+/>
+<!-- Font Awesome -->
+<link
+  href="{{ url_for('static', filename='vendors/font-awesome/css/font-awesome.min.css') }}"
+  rel="stylesheet"
+/>
+<!-- NProgress -->
+<link
+  href="{{ url_for('static', filename='vendors/nprogress/nprogress.css') }}"
+  rel="stylesheet"
+/>
+<!-- iCheck -->
+<link
+  href="{{ url_for('static', filename='vendors/iCheck/skins/flat/green.css') }}"
+  rel="stylesheet"
+/>
+<!-- Custom Theme Style -->
+<link
+  href="{{ url_for('static', filename='build/css/custom.css') }}"
+  rel="stylesheet"
+/>
+{% endblock %}
+
+<!-- main block -->
+{% block main %}
+<div class="">
+  <div class="page-title">
+    <div class="title_left">
+      <h3>Create or edit user</h3>
+    </div>
+  </div>
+
+  <div class="clearfix"></div>
+
+  <div class="row">
+    <div class="col-md-12 col-sm-12">
+      <div class="x_panel">
+        <div class="x_content">
+          <br />
+          <form
+            id="demo-form2"
+            data-parsley-validate
+            class="form-horizontal form-label-left"
+          >
+            <div class="item form-group">
+              <label
+                class="col-form-label col-md-3 col-sm-3 label-align"
+                for="login"
+                >Login <span class="required">*</span>
+              </label>
+              <div class="col-md-6 col-sm-6">
+                <input
+                  type="text"
+                  id="login"
+                  required="required"
+                  class="form-control"
+                />
+              </div>
+            </div>
+            <div class="item form-group">
+              <label
+                class="col-form-label col-md-3 col-sm-3 label-align"
+                for="first-name"
+                >First Name <span class="required">*</span>
+              </label>
+              <div class="col-md-6 col-sm-6">
+                <input
+                  type="text"
+                  id="first-name"
+                  required="required"
+                  class="form-control"
+                />
+              </div>
+            </div>
+            <div class="item form-group">
+              <label
+                class="col-form-label col-md-3 col-sm-3 label-align"
+                for="last-name"
+                >Last Name <span class="required">*</span>
+              </label>
+              <div class="col-md-6 col-sm-6">
+                <input
+                  type="text"
+                  id="last-name"
+                  name="last-name"
+                  required="required"
+                  class="form-control"
+                />
+              </div>
+            </div>
+            <div class="item form-group">
+              <label
+                class="col-form-label col-md-3 col-sm-3 label-align"
+                for="email"
+                >Email <span class="required">*</span>
+              </label>
+              <div class="col-md-6 col-sm-6">
+                <input
+                  type="text"
+                  id="email"
+                  name="email"
+                  required="required"
+                  class="form-control"
+                />
+              </div>
+            </div>
+            <div class="item form-group">
+              <label
+                class="col-form-label col-md-3 col-sm-3 label-align"
+                for="phone"
+                >Phone
+              </label>
+              <div class="col-md-6 col-sm-6">
+                <input
+                  type="text"
+                  id="phone"
+                  name="phone"
+                  class="form-control"
+                />
+              </div>
+            </div>
+            <div class="item form-group">
+              <label
+                for="role"
+                class="col-form-label col-md-3 col-sm-3 label-align"
+                >Role</label
+              >
+              <div class="col-md-6 col-sm-6">
+                <select id="role" class="form-control" required>
+                  <option value="">Choose..</option>
+                  <option value="USER">USER</option>
+                  <option value="ADMIN">ADMIN</option>
+                </select>
+              </div>
+            </div>
+            <br />
+            <div class="item form-group">
+              <label
+                for="role"
+                class="col-form-label col-md-3 col-sm-3 label-align"
+              ></label>
+              <div class="col-md-6 col-sm-6">
+                <button
+                  style="width: 180px"
+                  type="submit"
+                  class="btn btn-primary pull-right"
+                >
+                  Save
+                </button>
+                <button style="width: 180px" type="" class="btn btn-danger">
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+<!-- script block -->
+{% block script %}
+<!-- jQuery -->
+<script src="{{ url_for('static', filename='vendors/jquery/dist/jquery.min.js') }}"></script>
+<!-- Bootstrap -->
+<script src="{{ url_for('static', filename='vendors/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+<!-- FastClick -->
+<script src="{{ url_for('static', filename='vendors/fastclick/lib/fastclick.js') }}"></script>
+<!-- NProgress -->
+<script src="{{ url_for('static', filename='vendors/nprogress/nprogress.js') }}"></script>
+<!-- iCheck -->
+<script src="{{ url_for('static', filename='vendors/iCheck/icheck.min.js') }}"></script>
+
+<!-- Custom Theme Scripts -->
+<script src="{{ url_for('static', filename='build/js/custom.js') }}"></script>
+{% endblock %}
