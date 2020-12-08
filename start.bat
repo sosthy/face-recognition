@@ -1,2 +1,2 @@
-SET APP_CONFIG_FILE=C:\Users\developer\Projects\face-recognition-camera\config\development.py
-python run.py --host=0.0.0.0
+SET APP_CONFIG_FILE=C:\Users\s.nouebissi\Projets\face-recognition\config\development.py
+python run.py

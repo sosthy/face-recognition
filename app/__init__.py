@@ -46,6 +46,6 @@ def create_app():
     app.register_blueprint(public.public)
 
     # Init SocketIO
-    socketio.init_app(app)
+    socketio.init_app(app, async_mode="threading")
 
     return app

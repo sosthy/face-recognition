@@ -1,6 +1,9 @@
 import io
 import base64
+import cv2
+import imutils
 
+import numpy
 from flask import current_app
 from flask_socketio import emit
 from io import StringIO
@@ -10,16 +13,23 @@ from app import socketio
 
 @socketio.on("image_stream")
 def image_stream(data_image):
-    current_app.logger.debug("Receive Image...")
     sbuf = StringIO()
     sbuf.write(data_image)
+
+    # Load the cascade
+    face_cascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
 
     # decode and convert into image
     b = io.BytesIO(base64.b64decode(data_image))
     pimg = Image.open(b)
 
     ## converting RGB to BGR, as opencv standards
-    frame = cv2.cvtColor(np.array(pimg), cv2.COLOR_RGB2BGR)
+    frame = cv2.cvtColor(numpy.array(pimg), cv2.COLOR_RGB2BGR)
+    # faces = face_cascade.detectMultiScale(frame, 1.1, 4)
+
+    # Draw the rectangle around the faces
+    # for (x, y, w, h) in faces:
+    # cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
 
     # Process the image frame
     frame = imutils.resize(frame, width=700)

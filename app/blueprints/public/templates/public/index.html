@@ -1,26 +1,35 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Front - Page</title>
-    <link href="{{ url_for('static', filename='vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet" />
-    <link href="{{ url_for('static', filename='vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" />
-</head>
-<body>
+    <link
+      href="{{ url_for('static', filename='vendors/bootstrap/dist/css/bootstrap.min.css') }}"
+      rel="stylesheet"
+    />
+    <link
+      href="{{ url_for('static', filename='vendors/font-awesome/css/font-awesome.min.css') }}"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
     <div class="text-center my-3">
-        <a class="btn btn-outline-primary" href="{{ url_for('admin.users') }}">Users</a>
+      <a class="btn btn-outline-primary" href="{{ url_for('admin.users') }}"
+        >Users</a
+      >
     </div>
     <p class="display-4 text-center">Face Detection</p>
-    <div class="container d-flex justify-content-center align-items-center flex-column">
-        <button id="btn-camera-start" class="btn btn-success">Show Camera</button>
-        <button id="btn-camera-stop" class="btn btn-danger">Stop Camera</button>
-        <canvas id="canvasOutput"></canvas>
-        <video autoplay id="videoElement">
-        </video>
-        <div class="video">
-            <img id="image">
-        </div>
+    <div
+      class="container d-flex justify-content-center align-items-center flex-column"
+    >
+      <button id="btn-camera-start" class="btn btn-success">Show Camera</button>
+      <button id="btn-camera-stop" class="btn btn-danger">Stop Camera</button>
+      <canvas id="canvasOutput" class="sr-only"></canvas>
+      <video autoplay id="videoElement" class="sr-only"></video>
+      <div class="video">
+        <img id="image" />
+      </div>
     </div>
 
     <!-- jQuery -->
@@ -33,54 +42,57 @@
     <script src="{{ url_for('static', filename='vendors/opencv/opencv.js') }}"></script>
 
     <script type="text/javascript" charset="utf-8">
-        $(document).ready(function() {
-            var socket = io();
-            socket.on('connect', function () {
-                socket.emit('connected', { data: 'I\'m connected!' });
-            });
+      $(document).ready(function () {
+        var socket = io();
+        socket.on("connect", function () {
+          socket.emit("connected", { data: "I'm connected!" });
+        });
 
-            $('#btn-camera-start').click(function(event) {
-                var video = document.getElementById('videoElement');
+        $("#btn-camera-start").click(function (event) {
+          var video = document.getElementById("videoElement");
+          var canvas = document.getElementById("canvasOutput");
 
-                video.width = 500; 
-                video.height = 375;
+          video.width = 500;
+          video.height = 375;
 
-                if (navigator.mediaDevices.getUserMedia) {
-                    navigator.mediaDevices.getUserMedia({ video: true, audio: true })
-                    .then(function (stream) {
-                        video.srcObject = stream;
-                        video.play();
-                    })
-                    .catch(function (err0r) {
-                        console.log(err0r)
-                        console.log("Something went wrong!");
-                    });
-                }
+          if (navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices
+              .getUserMedia({ video: true })
+              .then(function (stream) {
+                video.srcObject = stream;
+                video.play();
+              })
+              .catch(function (err0r) {
+                console.log(err0r);
+                console.log("Something went wrong!");
+              });
+          }
 
-                var src = new cv.Mat(video.height, video.width, cv.CV_8UC4);
-                var dst = new cv.Mat(video.height, video.width, cv.CV_8UC1);
-                var cap = new cv.VideoCapture(video);
+          var src = new cv.Mat(video.height, video.width, cv.CV_8UC4);
+          var dst = new cv.Mat(video.height, video.width, cv.CV_8UC1);
+          var cap = new cv.VideoCapture(video);
 
-                var FPS = 22;
+          var FPS = 60;
 
-                setInterval(function() {
-                    cap.read(src);
-                    var type = "image/png"
-                    var data = document.getElementById("canvasOutput").toDataURL(type);
-                    data = data.replace('data:' + type + ';base64,', ''); //split off junk at the beginning
-                    socket.emit('image_stream', data);
-                }, 10000/FPS);
-            })
+          setInterval(function () {
+            cap.read(src);
+            var type = "image/png";
+            canvas.height = video.height;
+            canvas.width = video.width;
+            canvas.getContext("2d").drawImage(video, 0, 0);
+            var data = canvas.toDataURL(type);
+            data = data.replace("data:" + type + ";base64,", ""); //split off junk at the beginning
+            socket.emit("image_stream", data);
+          }, 10000 / FPS);
+        });
 
-            $('#btn-camera-stop').click(function(event) {
+        $("#btn-camera-stop").click(function (event) {});
 
-            });
-
-            socket.on('server_image', function(image){
-                const image_id = document.getElementById('image');
-                image_id.src = image;
-            });
-        })
+        socket.on("server_image", function (image) {
+          const image_id = document.getElementById("image");
+          image_id.src = image;
+        });
+      });
     </script>
-</body>
+  </body>
 </html>
