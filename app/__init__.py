@@ -1,10 +1,11 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from flask_socketio import SocketIO
 import datetime
-from .blueprints.admin import admin
 
 db = SQLAlchemy()
+socketio = SocketIO()
 
 
 def create_app():
@@ -39,6 +40,12 @@ def create_app():
     def inject_date_for_all_templates():
         return dict(date=datetime.datetime.now())
 
-    app.register_blueprint(admin, url_prefix="/admin")
+    from .blueprints import admin, public
+
+    app.register_blueprint(admin.admin, url_prefix="/admin")
+    app.register_blueprint(public.public)
+
+    # Init SocketIO
+    socketio.init_app(app)
 
     return app

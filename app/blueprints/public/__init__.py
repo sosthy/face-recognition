@@ -1,5 +1,10 @@
-from flask import Blueprint
+from flask import Blueprint, render_template
 
-frontoffice = Blueprint(
-    "frontoffice", __name__, template_folder="templates", static_folder="static"
-)
+public = Blueprint("public", __name__, template_folder="templates")
+
+from . import events
+
+
+@public.route("/")
+def home():
+    return render_template("public/index.html")

@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\app",
+    "\\app\\blueprints",
+    "\\app\\blueprints\\admin",
+    "\\app\\blueprints\\admin\\templates\\admin",
+    "\\app\\blueprints\\public",
+    "\\app\\blueprints\\public\\templates\\public",
+    "\\app\\static",
+    "\\app\\static\\vendors\\socket-io"
+  ],
+  "SelectedNode": "\\app\\blueprints\\public\\__init__.py",
+  "PreviewInSolutionExplorer": false
+}
