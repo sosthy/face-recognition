@@ -10,7 +10,10 @@ socketio = SocketIO()
 
 def create_app():
 
+    from flask_cors import CORS
+
     app = Flask(__name__, instance_relative_config=True)
+    CORS(app)
 
     # Load the default configuration
     app.config.from_object("config.default")
@@ -46,6 +49,6 @@ def create_app():
     app.register_blueprint(public.public)
 
     # Init SocketIO
-    socketio.init_app(app, async_mode="eventlet")
+    socketio.init_app(app, async_mode="eventlet", cors_allowed_origins="*")
 
     return app

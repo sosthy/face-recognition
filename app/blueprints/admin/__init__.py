@@ -2,6 +2,8 @@ from flask import Blueprint, render_template, redirect, url_for, request, curren
 from flask_login import login_required
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
+
+import bcrypt
 import os
 from app.models import User
 
@@ -49,7 +51,7 @@ def edit_user(user_id=None):
         user.email = request.form["email"]
         user.phone = request.form["phone"]
         user.role = request.form["role"]
-        user.password = "********"
+        user.password = bcrypt.hashpw("********", bcrypt.gensalt())
 
         if "photo" in request.files:
             file = request.files["photo"]
