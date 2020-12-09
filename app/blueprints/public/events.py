@@ -2,9 +2,11 @@ import io
 import base64
 import cv2
 import imutils
-
 import numpy
-from flask import current_app
+import os
+
+from werkzeug.utils import secure_filename
+from flask import current_app, url_for
 from flask_socketio import emit
 from io import StringIO
 from PIL import Image
@@ -17,7 +19,9 @@ def image_stream(data_image):
     sbuf.write(data_image)
 
     # Load the cascade
-    face_cascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
+    face_cascade = cv2.CascadeClassifier(
+        os.path.join(current_app.root_path, "haarcascade_frontalface_default.xml")
+    )
 
     # decode and convert into image
     b = io.BytesIO(base64.b64decode(data_image))
@@ -25,14 +29,21 @@ def image_stream(data_image):
 
     ## converting RGB to BGR, as opencv standards
     frame = cv2.cvtColor(numpy.array(pimg), cv2.COLOR_RGB2BGR)
-    # faces = face_cascade.detectMultiScale(frame, 1.1, 4)
+    gray = cv2.cvtColor(numpy.array(pimg), cv2.COLOR_RGB2GRAY)
+    faces = face_cascade.detectMultiScale(
+        gray,
+        scaleFactor=1.1,
+        minNeighbors=5,
+        minSize=(60, 60),
+        flags=cv2.CASCADE_SCALE_IMAGE,
+    )
 
     # Draw the rectangle around the faces
-    # for (x, y, w, h) in faces:
-    # cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
+    for (x, y, w, h) in faces:
+        cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
     # Process the image frame
-    frame = imutils.resize(frame, width=700)
+    frame = imutils.resize(frame, width=500)
     frame = cv2.flip(frame, 1)
     imgencode = cv2.imencode(".jpg", frame)[1]
 
