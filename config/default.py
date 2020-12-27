@@ -1,5 +1,9 @@
-DEBUG = True  # Turns on debugging features in Flask
+UPLOAD_FOLDER = "static/uploads"
+DEBUG = False  # Turns on debugging features in Flask
 BCRYPT_LOG_ROUNDS = 12  # Configuration for the Flask-Bcrypt extension
 MAIL_FROM_EMAIL = "sosthenegolden@gmail.com"  # For use in application emails
-SQLALCHEMY_ECHO = True
-UPLOAD_FOLDER = "static/uploads"
+SQLALCHEMY_ECHO = False
+SQLALCHEMY_DATABASE_URI = "sqlite:///db.sqlite"
+SQLALCHEMY_TRACK_MODIFICATIONS = False
+ENV = "production"
+BASE_URL = "https://127.0.0.1/face-recognition/"

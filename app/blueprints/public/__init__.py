@@ -2,7 +2,7 @@ from flask import Blueprint, render_template
 
 public = Blueprint("public", __name__, template_folder="templates")
 
-from . import events
+from . import faces_train, events
 
 
 @public.route("/")

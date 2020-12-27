@@ -1,11 +1,10 @@
-from app import create_app, socketio
+from app import create_app, socketio, db
 
 import os
 
-os.environ["APP_CONFIG_FILE"] = os.path.abspath("config/production.py")
+os.environ["APP_CONFIG_FILE"] = os.path.abspath("config/development.py")
 
-app = create_app()
-socketio.run(app, host="0.0.0.0")
+application = create_app()
 
 if __name__ == "__main__":
-    pass
+    socketio.run(application, host="0.0.0.0")
