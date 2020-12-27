@@ -18,3 +18,5 @@ Se positionner à la racine du projet et executé la commande
 Pour executer le programme une fois les dependances correctement installés
 
     python app.py
+
+Dans le navigateur `http://localhost:5000`
