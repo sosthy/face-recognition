@@ -23,7 +23,9 @@
     <div
       class="container d-flex justify-content-center align-items-center flex-column"
     >
-      <button id="btn-camera-start" class="btn btn-success mb-3">Show Camera</button>
+      <button id="btn-camera-start" class="btn btn-success mb-3">
+        Show Camera
+      </button>
       <!-- <button id="btn-camera-stop" class="btn btn-danger">Stop Camera</button> -->
       <canvas id="canvasOutput" class="sr-only"></canvas>
       <video autoplay id="videoElement" class="sr-only"></video>
@@ -43,7 +45,7 @@
 
     <script type="text/javascript" charset="utf-8">
       $(document).ready(function () {
-        var socket = io("http://172.16.30.24:5000/");
+        var socket = io("http://127.0.0.1:5000/");
         socket.on("connect", function () {
           socket.emit("connected", { data: "I'm connected!" });
         });
