@@ -11,6 +11,7 @@ Cette application permet la reconnaissance faciale des utilisateurs enregistrés
 
 Se positionner à la racine du projet et executé la commande
 
+    python -m pip install --upgrade pip
     pip install -r requirements.txt
 
 ## Executtion
