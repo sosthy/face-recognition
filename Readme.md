@@ -9,14 +9,14 @@ Cette application permet la reconnaissance faciale des utilisateurs enregistrés
 
 ## Installation des dependances python
 
-Se positionner à la racine du projet et executé la commande
+Se positionner à la racine du projet et executer la commande
 
     python -m pip install --upgrade pip
     pip install -r requirements.txt
 
 ## Executtion
 
-Pour executer le programme une fois les dependances correctement installés
+Pour executer le programme une fois les dependances correctement installées
 
     python app.py
 
